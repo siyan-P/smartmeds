@@ -1,0 +1,30 @@
+.img{
+    height: 180px;
+    width: 180px;
+    
+    
+}
+.centerImg{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.h3{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #087792;
+    letter-spacing: 0.1rem;
+    
+}
+
+.cardContents{
+    align-items: center;
+    
+}
+.cardContents:hover,:active{
+    background-color: #ebeeef;
+}
+.para{
+    padding-left: 20px;
+}

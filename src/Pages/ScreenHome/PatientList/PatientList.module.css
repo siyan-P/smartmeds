@@ -1,0 +1,46 @@
+.components{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 20px;
+    
+}
+.h2{
+    text-align: center;
+    color: #087792;
+}
+.h3{
+    text-align: center;
+    color: #087792;
+}
+.listMed{
+    display: flex;
+    justify-content: row;
+    gap: 20px;
+    margin: 10px;
+    align-items: center;
+    padding-left: 15%;
+    
+
+  }
+
+  .button {
+    font: inherit;
+    border: 1px solid #f6dbfc;
+    background: #087792;
+    color: white;
+    padding: 0.65rem 3.5rem;
+    cursor: pointer;
+    font-size: 1.0rem;
+    border-radius: 30px;
+  }
+  
+  .button:hover,
+  .button:active {
+    background: #087792;
+    border-color: #087792;
+  }
+  
+  .button:focus {
+    outline: none;
+  }

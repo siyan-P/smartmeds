@@ -1,0 +1,18 @@
+.cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 35px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+   
+    
+}
+/* .maincard{
+    justify-content: space-evenly;
+    width: 100px;
+} */
+
+/* .mainCard{
+    justify-content: center;
+} */
