@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../../../Components/UI/Card/Card";
 import profileimg from "../../../assets/images/profile.png";
 import classes from "./DrProfile.module.css";
-function DrProfile() {
+function DrProfile(props) {
   return (
     <div>
       <div className={classes.card}>
@@ -13,7 +13,7 @@ function DrProfile() {
         <div className={classes['card-details']}>
         <p>Welcome onboard!</p>
         <br/>
-          <h2>Dr.John Doe</h2>
+          <h2>{props.name}</h2>
           <p>Email: john.doe@example.com</p>
           <p>Phone: +1 123-456-7890</p>
           
