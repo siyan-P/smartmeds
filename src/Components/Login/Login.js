@@ -37,6 +37,10 @@ const Login = (props) => {
         },).then(function (response) {
           console.log('api response');
           console.log(response.data);
+          console.log(response.data.username);
+          console.log(response.data.id);
+          localStorage.setItem('Name', response.data.username);
+          localStorage.setItem('id', response.data.id);
           if(response.status === 200){
             navigate("/home");
           }
