@@ -10,7 +10,7 @@ function ScreenSplash() {
   return (
     <div>
       <MainHeader/>
-      <ImageSlider></ImageSlider>
+      <ImageSlider/>
     <h2 className={classes.h2}>Features where SmartMeds Provides..</h2>
     <div className={classes.cardDescription}>
         <CardDescription title='NFC Enabled Medication'></CardDescription>

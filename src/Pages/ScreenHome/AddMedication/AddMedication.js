@@ -1,6 +1,7 @@
 import React, { useReducer, useState , useEffect} from "react";
 import Card from "../../../Components/UI/Card/Card";
 import classes from "./AddMedication.module.css";
+import axios from "axios";
 
 
 const formReducer = (state, event) => {
@@ -14,6 +15,7 @@ function AddMedication() {
   const [noon, setNoon] = useState(false);
   const [evening, setEvening] = useState(false);
   const [medTime, setMedTime] = useState('after food')
+  const [errorState, seterrorState] = useState("");
   const [formData, setFormData] = useReducer(formReducer, {});
 
   const handleChange = (event) => {
@@ -53,23 +55,45 @@ function AddMedication() {
     console.log(formData.noon);
     console.log(formData.evening);
     console.log(formData.pname);
-    
-    //console.log(selected);
     console.log(medTime);
     console.log(localStorage.getItem('Name'));
     console.log(localStorage.getItem('id'));
-    if(formData.pname && formData.medName && formData.description && formData.medEnd !== ''){
-
-      console.log('success');
-
-    }
     console.log(mornign);
     console.log(noon);
     console.log(evening);
-    formData.medName='';
+    if(formData.pname && formData.medName && formData.medEnd !== ''){
 
-    //clear the input values
-   // dispatch({ type: "RESET" });
+      console.log('success');
+      axios.post("http://192.168.1.39:8000/medicine/medicineList/",
+      {
+       description:formData.description,
+       endDate:formData.medEnd,
+       medName:formData.medName,
+       p_id:'2',
+       medMorning:mornign,
+       medNoon:noon,
+       medEvening:evening,
+       medicineTime:medTime,
+       doc_name:localStorage.getItem('Name'),
+       doc_id:localStorage.getItem('id'),
+      }).then(function (response) {
+        console.log(response.data);
+        if(response.status === 201){
+          seterrorState('');
+          console.log('successfully added medicine');
+          
+        }
+      }).catch(function (error) {
+        console.log(error);
+        if(error.response.status === 400){
+          console.log('failed to add medication ');
+        }
+      });
+
+
+    }else{
+      seterrorState("Unable to proceed!.Please fill the fields");
+    }
   };
   return (
     <div>
@@ -86,14 +110,7 @@ function AddMedication() {
               <input
                 type="text"
                 name="pname"
-                //value={state.pname}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-               //}
+              
                onChange={handleChange}
               ></input>
             </div>
@@ -105,13 +122,7 @@ function AddMedication() {
                 name="medName"
                // value={state.medName}
                 onChange={handleChange}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+               
               ></input>
             </div>
             <div className={classes.control}>
@@ -120,14 +131,7 @@ function AddMedication() {
                 type="text"
                 name="description"
                 onChange={handleChange}
-               // value={state.description}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+             
               ></input>
             </div>
             <label>Select Medication Timing</label>
@@ -136,42 +140,21 @@ function AddMedication() {
                 type="checkbox"
                 name="morning"
                 onChange={handleChange}
-                // value={state.morning}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+              
               />
               <label htmlFor="morning"> Morning</label>
               <input
                 type="checkbox"
                 name="noon"
                 onChange={handleChange}
-                // value={state.noon}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+           
               />
               <label htmlFor="noon"> Noon</label>
               <input
                 type="checkbox"
                 name="evening"
                 onChange={handleChange}
-                // value={state.evening}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+           
               />
               <label htmlFor="evening"> Evening</label>
             </div>
@@ -181,15 +164,7 @@ function AddMedication() {
                 type="radio"
                 id="afterFood"
                 name="medTime"
-                //onChange={handleChange}
-                // value={state.afterFood}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+            
               />
               <label htmlFor="afterFood">After Food</label>
               <input
@@ -197,14 +172,7 @@ function AddMedication() {
                 id="beforeFood"
                 name="medTime"
                 onClick={()=>{setMedTime('beforeFood')}}
-               // value={state.beforeFood}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+           
               />
               <label htmlFor="beforeFood">Before Food</label>
             </div>
@@ -215,14 +183,7 @@ function AddMedication() {
                 id="startingDate"
                 name="medStarting"
                 onChange={handleChange}
-                //value={state.medStarting}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+              
               />
             </div>
             <div className={classes.control}>
@@ -232,17 +193,10 @@ function AddMedication() {
                 id="endingDate"
                 name="medEnd"
                 onChange={handleChange}
-                // value={state.medEnd}
-                // onChange={(e) =>
-                //   dispatch({
-                //     type: "INPUT_CHANGE",
-                //     name: e.target.name,
-                //     value: e.target.value,
-                //   })
-                // }
+            
               />
             </div>
-
+            <p className={classes.errormessage}>{errorState}</p>
             <button className={classes.button}>Submit</button>
             <div className={classes.listMed}>
               <h5>View Already Listed Medication Details</h5>

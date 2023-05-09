@@ -22,9 +22,9 @@
     align-items: center;
     
 }
-.cardContents:hover,:active{
+/* .cardContents:hover,:active{
     background-color: #ebeeef;
-}
+} */
 .para{
     padding-left: 20px;
 }

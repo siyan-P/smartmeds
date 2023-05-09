@@ -79,3 +79,9 @@
     align-items: center;
 
   }
+
+  .errormessage {
+    color: red;
+    font-size: 1 rem;
+    text-align: center;
+  }

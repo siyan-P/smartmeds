@@ -6,7 +6,7 @@ import classes from './ImageSlider.module.css';
 
 const images = [
   {
-    url: 'https://placeimg.com/640/480/animals',
+    url: 'http://localhost:3000/src/assets/images/banner.jpg',
     alt: 'Animal 1',
   },
   {
