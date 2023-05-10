@@ -55,3 +55,8 @@
 .patientCard:active{
   background-color: #f5f5f5;
 }
+
+.errorMsg{
+  text-align: center;
+  color: red;
+}

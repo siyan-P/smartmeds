@@ -1,4 +1,4 @@
-import React, { useState,useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Login from './Components/Login/Login';
 import SignUp from './Pages/Registration/SignUp';
 import {Routes,Route,useNavigate} from 'react-router-dom';
