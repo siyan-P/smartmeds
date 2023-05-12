@@ -2,6 +2,8 @@ import React, { useReducer, useState , useEffect} from "react";
 import Card from "../../../Components/UI/Card/Card";
 import classes from "./AddMedication.module.css";
 import axios from "axios";
+import MedicationList from "../MedicationList/MedicationList";
+import ScreenHome from "../ScreenHome";
 
 
 const formReducer = (state, event) => {
@@ -10,13 +12,15 @@ const formReducer = (state, event) => {
     [event.name]: event.value,
   };
 };
-function AddMedication() {
+function AddMedication(props) {
   const [mornign, setMorning] = useState(false);
   const [noon, setNoon] = useState(false);
   const [evening, setEvening] = useState(false);
   const [medTime, setMedTime] = useState('after food')
   const [errorState, seterrorState] = useState("");
+  //const [dataUpdated, setDataUpdated]  = useState(false);
   const [formData, setFormData] = useReducer(formReducer, {});
+ // const [pid, setpid] = useState('sample');
 
   const handleChange = (event) => {
     setFormData({
@@ -81,6 +85,8 @@ function AddMedication() {
         if(response.status === 201){
           seterrorState('');
           console.log('successfully added medicine');
+          // setDataUpdated(true);
+          // onDataChange(dataUpdated);
           
         }
       }).catch(function (error) {
@@ -89,12 +95,18 @@ function AddMedication() {
           console.log('failed to add medication ');
         }
       });
-
-
     }else{
       seterrorState("Unable to proceed!.Please fill the fields");
     }
   };
+  //method for passing patient id to list medication component
+  const getPatientId = () =>{
+    console.log('inside getpatient', formData.pname);
+   // const pname = formData.pname;
+    // return <MedicationList>pname={formData.pname}</MedicationList> 
+    props.pname(formData.pname);
+    return <ScreenHome></ScreenHome>
+  }
   return (
     <div>
       <br />
@@ -112,6 +124,7 @@ function AddMedication() {
                 name="pname"
               
                onChange={handleChange}
+               
               ></input>
             </div>
 
@@ -197,11 +210,12 @@ function AddMedication() {
               />
             </div>
             <p className={classes.errormessage}>{errorState}</p>
-            <button className={classes.button}>Submit</button>
+            <button className={classes.button} >Submit</button>
             <div className={classes.listMed}>
               <h5>View Already Listed Medication Details</h5>
-              <button className={classes.button}>Show List</button>
+              <button className={classes.button} onClick={getPatientId}>Show List</button>
             </div>
+            
           </div>
         </form>
       </Card>

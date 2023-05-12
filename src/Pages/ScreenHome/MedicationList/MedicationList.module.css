@@ -1,0 +1,48 @@
+.card {
+  width: 400px;
+  padding: 5px;
+  margin: 5px auto;
+  border: 1px solid white;
+  box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+  user-select: none;
+  color: black;
+}
+
+.card:hover {
+  border: 1px solid black;
+  transform: scale(1.05);
+  background: rgba(250, 243, 243, 0.58);
+}
+
+.card:active {
+  transform: scale(0.95) rotateZ(1.7deg);
+  background: rgba(236, 232, 232, 0.58);
+}
+.iconDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+.edit {
+  color: #087792;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+}
+.delete {
+  color: red;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+}
+
+.medName {
+  font-weight: 900;
+  color: #087792;
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "../../../Components/UI/Card/Card";
 import classes from "./PatientList.module.css";
 import axios from "axios";
-
+//import AddMedication from "../AddMedication/AddMedication";
 function PatientCard({ user }) {
   return (
     <div className={classes.patientCard}>
@@ -32,16 +32,19 @@ function PatientList() {
         }
       })
       .catch(function (error) {
-        if (error.response.status === 404) {
-          console.log("inside er fun ,no data found");
-          setPostUsers(null);
-        }
+        // if (error.response.status === 404) {
+        //   console.log("inside er fun ,no data found");
+        //    setPostUsers(null);
+        // }
+        console.log(error.message);
+        setPostUsers(null);
+        
       });
   }, []);
 
   return (
     <div>
-      <br />
+      <br/>
       <Card>
         <div>
           <h2 className={classes.h2}>Patient List</h2>
