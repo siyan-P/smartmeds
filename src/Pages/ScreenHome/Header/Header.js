@@ -1,25 +1,20 @@
-import { Fragment } from 'react'
-import React from 'react'
-import classes from './Header.module.css'
-import Button from '../../../Components/UI/Button/Button'
+import { Fragment } from "react";
+import React from "react";
+import classes from "./Header.module.css";
+import Button from "../../../Components/UI/Button/Button";
 function Header() {
   return (
-    <Fragment>
     <header className={classes.header}>
-      <h1 className={classes.h1}>SmartMeds</h1>
+      <h3 className={classes.h1}>SmartMeds</h3>
       <nav>
         <ul>
           <li>
             <button className={classes.button}>Logout</button>
           </li>
         </ul>
-        </nav>
-        
-      
+      </nav>
     </header>
-
-  </Fragment>
-  )
+  );
 }
 
-export default Header
+export default Header;

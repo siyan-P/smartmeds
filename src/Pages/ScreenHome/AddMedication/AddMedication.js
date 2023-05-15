@@ -101,9 +101,7 @@ function AddMedication(props) {
   };
   //method for passing patient id to list medication component
   const getPatientId = () =>{
-    console.log('inside getpatient', formData.pname);
-   // const pname = formData.pname;
-    // return <MedicationList>pname={formData.pname}</MedicationList> 
+    console.log('inside getpatient', formData.pname); 
     props.pname(formData.pname);
     return <ScreenHome></ScreenHome>
   }
@@ -212,7 +210,7 @@ function AddMedication(props) {
             <p className={classes.errormessage}>{errorState}</p>
             <button className={classes.button} >Submit</button>
             <div className={classes.listMed}>
-              <h5>View Already Listed Medication Details</h5>
+              <p className={classes.para}>View Listed Medication Details</p>
               <button className={classes.button} onClick={getPatientId}>Show List</button>
             </div>
             

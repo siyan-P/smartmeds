@@ -24,7 +24,7 @@ function SignUp() {
 
   const navigate = useNavigate();
   const navigateToLogin = () => {
-    navigate("/login");
+    navigate("/");
   };
   const registration = (event) => {
     event.preventDefault();
@@ -136,7 +136,7 @@ function SignUp() {
               </Button>
             </div>
           </form>
-          <h4>Have Account? Login to Continue </h4>
+          <p className={classes.para}>Have Account? Login to Continue </p>
           <div className={classes.actions}>
             <Button
               type="submit"

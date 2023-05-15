@@ -99,7 +99,7 @@ const Login = (props) => {
             </div>
           </form>
 
-          <h4>Does not have account? SignUp to Continue! </h4>
+          <p className={classes.para}>Does not have account? SignUp to Continue! </p>
           <div className={classes.actions}>
             <Button type="submit" onClick={navigateToSignUp}>
               SignUp

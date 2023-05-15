@@ -1,17 +1,18 @@
 .components{
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     width: 450px;
    
     
 }
-.h2{
+.h4{
     text-align: center;
     color: #087792;
 }
-.h3{
+.para{
     text-align: center;
     color: #087792;
+    font-weight: 700;
 }
 .listMed{
     display: flex;
@@ -22,27 +23,6 @@
     padding-left: 15%;
     
 
-  }
-
-  .button {
-    font: inherit;
-    border: 1px solid #f6dbfc;
-    background: #087792;
-    color: white;
-    padding: 0.65rem 3.5rem;
-    cursor: pointer;
-    font-size: 1.0rem;
-    border-radius: 30px;
-  }
-  
-  .button:hover,
-  .button:active {
-    background: #087792;
-    border-color: #087792;
-  }
-  
-  .button:focus {
-    outline: none;
   }
 .patientCard{
   background-color: #fff;

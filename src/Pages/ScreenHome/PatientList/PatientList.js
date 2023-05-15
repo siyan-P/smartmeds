@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../../Components/UI/Card/Card";
-import classes from "./PatientList.module.css";
 import axios from "axios";
+import classes from './PatientList.module.css';
 //import AddMedication from "../AddMedication/AddMedication";
 function PatientCard({ user }) {
   return (
@@ -43,12 +43,12 @@ function PatientList() {
   }, []);
 
   return (
-    <div>
+    <div className={classes.components}>
       <br/>
       <Card>
         <div>
-          <h2 className={classes.h2}>Patient List</h2>
-          <h3 className={classes.h3}>Medication Added Today</h3>
+          <h4 className={classes.h4}>Patient List</h4>
+          <p className={classes.para}>Medication Added Today</p>
           <hr />
         </div>
         {users ? (
@@ -64,10 +64,10 @@ function PatientList() {
         )}
 
         <hr />
-        <div className={classes.listMed}>
+        {/* <div className={classes.listMed}>
           <h5>View History Informations</h5>
           <button className={classes.button}>History</button>
-        </div>
+        </div> */}
       </Card>
     </div>
   );

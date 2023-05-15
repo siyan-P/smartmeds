@@ -1,18 +1,19 @@
-import React, { Fragment } from 'react';
-import Login from './Components/Login/Login';
-import SignUp from './Pages/Registration/SignUp';
-import {Routes,Route,useNavigate} from 'react-router-dom';
-import ScreenSplash from './Pages/ScreenSplash/ScreenSplash';
-import ScreenHome from './Pages/ScreenHome/ScreenHome';
+import React, { Fragment } from "react";
+import Login from "./Components/Login/Login";
+import SignUp from "./Pages/Registration/SignUp";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import ScreenSplash from "./Pages/ScreenSplash/ScreenSplash";
+import ScreenHome from "./Pages/ScreenHome/ScreenHome";
+import HistoryMedication from "./Pages/ScreenHome/HistoryMedication/HistoryMedication";
+
 
 function App() {
   const navigate = useNavigate();
   const navigateToContacts = () => {
-    
-    navigate('/login');
+    navigate("/login");
   };
   //const[pageState,setPageState]=useState('');
- // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect(() =>{
   //   const StoredLocalStorageValue = localStorage.getItem('LoggedIn');
@@ -20,12 +21,12 @@ function App() {
   //     setIsLoggedIn(true);
   //   }
   // },[]);
-  
+
   // const pageStateHandler = () =>{
   //   setPageState('signUp')
   // }
   // const loginHandler = (email, password) => {
-   
+
   //   setIsLoggedIn(true);
   // };
 
@@ -44,21 +45,15 @@ function App() {
     //   isLoggedIn: isLoggedIn
     // }}>
     <Fragment>
-      
-   <Routes>
-   <Route path="/" element={<ScreenSplash />} />
-   <Route path="login" element={<Login />} />
-   <Route path="/signup" element={<SignUp/>}/>
-   <Route path="/home" element={<ScreenHome/>}/>
-   </Routes>
-    
-     
-      
-     
-      </Fragment>
-    
+      <Routes>
+        {/* <Route path="/" element={<ScreenSplash />} /> */}
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/home" element={<ScreenHome />} />
+        <Route path="/history" element={<HistoryMedication />} />
+      </Routes>
+    </Fragment>
   );
 }
 
 export default App;
-

@@ -14,13 +14,10 @@ function ScreenHome() {
   return (
     <div className={classes.maincard}>
       <Header></Header>
-      <br/>
-      <DrProfile></DrProfile>
-      <br/>
+      
       <div className={classes.cards}>
       <PatientList></PatientList>
       <AddMedication pname={onSuccess}/>
-      {/* <div><p>{pname}</p></div> */}
       <MedicationList pname={pname}/>
       
       </div>

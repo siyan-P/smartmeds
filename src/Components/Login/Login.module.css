@@ -93,4 +93,10 @@
     font-size: 1 rem;
     text-align: center;
   }
+  .para{
+    padding-top: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
   
