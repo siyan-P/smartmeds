@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Card from "../../../Components/UI/Card/Card";
 import axios from "axios";
 import classes from './PatientList.module.css';
+import { MedAdded, PatientId } from "../../Context";
 //import AddMedication from "../AddMedication/AddMedication";
 function PatientCard({ user }) {
   return (
@@ -16,13 +17,15 @@ function PatientCard({ user }) {
 }
 
 function PatientList() {
+  const {medAdded , setMedAdded} = useContext(MedAdded);
+  const {patientId, setPatientID} = useContext(PatientId);
   const [users, setPostUsers] = useState([]);
   const date = new Date().toISOString().slice(0, 10);
   console.log(date);
 
   useEffect(() => {
     axios
-      .get(`http://192.168.1.39:8000/medicine/history/?date=${date}`)
+      .get(`http://192.168.106.48:8000/medicine/history/?date=${date}`)
       .then((response) => {
         if (response.status === 200) {
           console.log("success response");
@@ -40,7 +43,8 @@ function PatientList() {
         setPostUsers(null);
         
       });
-  }, []);
+      setMedAdded(false);
+  }, [medAdded]);
 
   return (
     <div className={classes.components}>

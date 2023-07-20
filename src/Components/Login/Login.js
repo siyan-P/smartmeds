@@ -31,7 +31,7 @@ const Login = (props) => {
       if (enteredUsername && enteredPassword !== "") {
         
         console.log('inside axios');
-        axios.post("http://192.168.1.39:8000/Draccounts/loginDr/",{
+        axios.post("http://192.168.106.48:8000/Draccounts/loginDr/",{
           username:enteredUsername,
           password:enteredPassword
         },).then(function (response) {

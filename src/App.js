@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import ScreenSplash from "./Pages/ScreenSplash/ScreenSplash";
 import ScreenHome from "./Pages/ScreenHome/ScreenHome";
 import HistoryMedication from "./Pages/ScreenHome/HistoryMedication/HistoryMedication";
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/home" element={<ScreenHome />} />
         <Route path="/history" element={<HistoryMedication />} />
       </Routes>
+      <ToastContainer/>
     </Fragment>
   );
 }

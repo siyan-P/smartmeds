@@ -1,9 +1,10 @@
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import moment from "moment/moment";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import classes from "./HistoryMedication.module.css";
 import NavScrollExample from "../../../Components/Nav/NavBar";
+import {PatientId } from "../../Context";
 
 
 const HistoryList = ({ medlist }) => {
@@ -25,9 +26,10 @@ const HistoryList = ({ medlist }) => {
   );
 };
 function HistoryMedication(props) {
+  const {patientId, setPatientID} = useContext(PatientId);
   const [data, setData] = useState([]);
   const [pid, setpid] = useState();
-
+ console.log("patient id passed from useContext",patientId);
   //function to call medication list api
   useEffect(() => {
     setpid(props.pname);
@@ -35,7 +37,7 @@ function HistoryMedication(props) {
     console.log('medication in his',props.pname);
     console.log("inside useeffect ");
     axios
-      .get(`http://192.168.1.39:8000/medicine/HistoryView/?p_id=3`)
+      .get(`http://192.168.106.48:8000/medicine/HistoryView/?p_id=${patientId}`)
       .then(function (response) {
         console.log("api response", response.data);
         if (response.status === 200) {

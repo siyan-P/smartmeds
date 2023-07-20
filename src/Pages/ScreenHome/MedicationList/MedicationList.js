@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import Card from "../../../Components/UI/Card/Card";
 import classes from "../PatientList/PatientList.module.css";
 import styles from "./MedicationList.module.css";
@@ -7,8 +7,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCloseSquare, AiOutlineEdit } from "react-icons/ai";
 import HistoryMedication from "../HistoryMedication/HistoryMedication";
+import { MedAdded,PatientId,MedDetails } from "../../Context";
 
-function MedicineListCard({ medlist }) {
+function MedicineListCard({ medlist, onDelete, onUpdate}) {
+  
   const StartDate = `${medlist.startDate}`;
   const formattedStart = moment(StartDate).format("YYYY-MM-DD");
   const EndDate = `${medlist.endDate}`;
@@ -21,8 +23,8 @@ function MedicineListCard({ medlist }) {
           <span className={styles.medName}>{medlist.medName}</span>
         </span>
         <span>
-          <AiOutlineEdit className={styles.edit} />
-          <AiOutlineCloseSquare className={styles.delete} onClick={deleteMed} />
+          <AiOutlineEdit className={styles.edit} onClick={() => onUpdate(medlist)}/>
+          <AiOutlineCloseSquare className={styles.delete} onClick={() => onDelete(medlist.id)}/>
         </span>
       </div>
       <p>
@@ -34,9 +36,7 @@ function MedicineListCard({ medlist }) {
     </div>
   );
 }
-const deleteMed = () => {
-  console.log("delete med clicked");
-};
+
 
 function MedicationList(pname) {
   //navigating to history page
@@ -49,15 +49,45 @@ function MedicationList(pname) {
   // const navigateToHistory = () => {
   //   navigate(`/history/${pname}`);
   // };
+  const {medAdded , setMedAdded} = useContext(MedAdded);
+  const {medupdateDetails, setMedDetails}= useContext(MedDetails);
   const [errorMsg, setErrorMsg] = useState("");
   const [data, setData] = useState([]);
+  const [medDelete, setMedDelete] = useState(false);
+  const {patientId, setPatientID} = useContext(PatientId);
+  
   const date = new Date().toISOString().slice(0, 10);
+  const deleteMed = (id) => {
+    console.log("delete med clicked",id);
+    axios.delete(`http://192.168.106.48:8000/medicine/deleteMed/${id}/`).then((response) =>{
+      console.log('response data',response.data);
+      if(response.status === 200){
+        setMedDelete(true);
+      }
+    }).catch((error) =>{
+      console.log('error data,',error);
+    });
+  };
+  //update medicine information
+  const updateMed = (id) => {
+    setMedDetails(id);
+    console.log("updated  med clicked",id);
+    axios.delete(`http://192.168.106.:8000/medicine/medicineUpdate/${id.id}/`).then((response) =>{
+      console.log('response data',response.data);
+      if(response.status === 200){
+        setMedDelete(true);
+      }
+    }).catch((error) =>{
+      console.log('error data,',error);
+    });
+  };
+
   console.log("passed value", pname);
   useEffect(() => {
     console.log("inside useeffect selecetd name", pname);
     axios
       .get(
-        `http://192.168.50.48:8000/medicine/selectedMedicines/?p_id=${pname.pname}&date=${date}`
+        `http://192.168.106.48:8000/medicine/selectedMedicines/?p_id=${pname.pname}&date=${date}`
       )
       .then(function (response) {
         console.log("api response", response.data);
@@ -74,11 +104,13 @@ function MedicationList(pname) {
           setData(null);
         }
       });
-  }, [pname]);
+      setMedAdded(false);
+      setPatientID(pname.pname);
+  }, [pname,medAdded,medDelete]);
   console.log("medication list ", pname);
 
   return (
-    <div>
+    <div style={{zIndex:"9999"}}>
       <br />
       <Card>
         <div>
@@ -91,7 +123,7 @@ function MedicationList(pname) {
         {data ? (
           <div className={classes.components}>
             {data.map((medlist, index) => (
-              <MedicineListCard key={index} medlist={medlist} />
+              <MedicineListCard key={index} medlist={medlist} onDelete={deleteMed} onUpdate={updateMed} />
             ))}
           </div>
         ) : (
@@ -104,9 +136,9 @@ function MedicationList(pname) {
 
         <div className={classes.listMed}>
           <p className={classes.para}>View History Informations</p>
-          <button className={styles.button} onClick={navigateToHistory}>
+          {patientId ? (<button className={styles.button} onClick={navigateToHistory}>
             History
-          </button>
+          </button>):<p>Select Patient for view History</p>}
         </div>
       </Card>
     </div>

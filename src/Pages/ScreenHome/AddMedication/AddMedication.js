@@ -1,9 +1,13 @@
-import React, { useReducer, useState , useEffect} from "react";
+import React, { useReducer, useState , useEffect, useContext} from "react";
 import Card from "../../../Components/UI/Card/Card";
 import classes from "./AddMedication.module.css";
 import axios from "axios";
 import MedicationList from "../MedicationList/MedicationList";
 import ScreenHome from "../ScreenHome";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { MedAdded,MedDetails,PatientId} from "../../Context";
+
 
 
 const formReducer = (state, event) => {
@@ -13,6 +17,8 @@ const formReducer = (state, event) => {
   };
 };
 function AddMedication(props) {
+  const {medAdded , setMedAdded } = useContext(MedAdded);
+  const {medupdateDetails, setMedDetails}= useContext(MedDetails);
   const [mornign, setMorning] = useState(false);
   const [noon, setNoon] = useState(false);
   const [evening, setEvening] = useState(false);
@@ -47,6 +53,19 @@ function AddMedication(props) {
     }
   }, [formData]);
 
+  const alertMsg = () => {
+    console.log("inside alert message");
+    toast.success('Medicine Added Successfully!',{
+      position:toast.POSITION.TOP_CENTER
+    });
+  };
+  const alertMsgWarning = (textMsg) => {
+    console.log("inside warning msg");
+    toast.warning(textMsg,{
+      position:toast.POSITION.TOP_CENTER
+    });
+  };
+
   const addMedication = (e) => {
     e.preventDefault();
      console.log("inside add medication");
@@ -68,12 +87,12 @@ function AddMedication(props) {
     if(formData.pname && formData.medName && formData.medEnd !== ''){
 
       console.log('success');
-      axios.post("http://192.168.1.39:8000/medicine/medicineList/",
-      {
+      axios.post("http://192.168.106.48:8000/medicine/medicineList/",
+      { 
        description:formData.description,
        endDate:formData.medEnd,
        medName:formData.medName,
-       p_id:'2',
+       p_id:formData.pname,
        medMorning:mornign,
        medNoon:noon,
        medEvening:evening,
@@ -85,6 +104,8 @@ function AddMedication(props) {
         if(response.status === 201){
           seterrorState('');
           console.log('successfully added medicine');
+          alertMsg();
+          setMedAdded(true);
           // setDataUpdated(true);
           // onDataChange(dataUpdated);
           
@@ -93,10 +114,12 @@ function AddMedication(props) {
         console.log(error);
         if(error.response.status === 400){
           console.log('failed to add medication ');
+          alertMsgWarning('Error adding medication!');
         }
       });
     }else{
       seterrorState("Unable to proceed!.Please fill the fields");
+     // alertMsgWarning('Error adding medication!');
     }
   };
   //method for passing patient id to list medication component
@@ -131,7 +154,7 @@ function AddMedication(props) {
               <input
                 type="text"
                 name="medName"
-               // value={state.medName}
+               value={medupdateDetails ? medupdateDetails.medName:''}
                 onChange={handleChange}
                
               ></input>
@@ -209,13 +232,15 @@ function AddMedication(props) {
             </div>
             <p className={classes.errormessage}>{errorState}</p>
             <button className={classes.button} >Submit</button>
-            <div className={classes.listMed}>
-              <p className={classes.para}>View Listed Medication Details</p>
-              <button className={classes.button} onClick={getPatientId}>Show List</button>
-            </div>
+            
             
           </div>
         </form>
+        <div className={classes.listMed}>
+              <p className={classes.para}>View Listed Medication Details</p>
+              <button className={classes.button} onClick={getPatientId}>Show List</button>
+            </div>
+            <br/>
       </Card>
     </div>
   );
